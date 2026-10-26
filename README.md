@@ -8,6 +8,7 @@ This repository implements **Milestone 1** using **ESP-IDF in VS Code**, framed 
 
 - We have implemented both ESP-IDF firmware projects, the Python gateway, the browser interface, and automated software tests.
 - We can exercise the workflow using explicitly labelled **simulation** mode.
+- We have passed 19 Python tests, the native C protocol/state-machine test, and both ESP-IDF v5.5.1 firmware builds. [Validation details](docs/VALIDATION.md) identify the tested revision and remaining checks.
 - We still need to flash our physical boards and complete the hardware demonstration and real packet captures. Software tests do not establish hardware operation.
 - We defer formal benchmarking, MQTT, UDP, Modbus, and the final narrative report to the appropriate later work.
 
@@ -57,6 +58,8 @@ We finish only when every requested part has been produced and inspected. We pre
 ## Try the software workflow on Windows
 
 We use **Python 3.11 or newer** and **ESP-IDF v5.5.1** for reproducible firmware builds. We run the following from this repository's root in PowerShell:
+
+For **firmware builds on Windows**, we first use a short checkout path without spaces, such as `E:\mct431-production-network`; see deployment step 0. The Python gateway and simulation can run from our coursework folder.
 
 ```powershell
 py -3 -m venv .venv

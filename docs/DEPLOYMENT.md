@@ -2,6 +2,17 @@
 
 We use two **classic ESP32 development boards with onboard USB-to-UART bridges** (for example ESP32-WROOM-32 DevKit boards), a Windows gateway PC, and a separate operator PC. ESP32-C3/S3 native USB configurations are outside this initial hardware target.
 
+## 0. We use a build path without spaces
+
+Our coursework folder contains spaces. ESP-IDF v5.5.1's [Windows project guide](https://docs.espressif.com/projects/esp-idf/en/v5.5.1/esp32/get-started/windows-start-project.html) requires paths without spaces for firmware builds. Before opening a firmware project in VS Code, we make a deployment checkout in a short path:
+
+```powershell
+git clone https://github.com/MohamedGeasa/mct431-production-network.git E:\mct431-production-network
+code E:\mct431-production-network\mct431.code-workspace
+```
+
+We use that checkout consistently for the following build steps. If it already exists, we open it and use `git pull` after preserving any local changes instead of cloning over it. Our original coursework folder remains intact. Personal configuration and virtual environments are not copied by Git; we create them in the checkout where we run the gateway. We also install the ESP-IDF SDK/tools under a path without spaces, such as `C:\Espressif`.
+
 ## 1. Our hardware and wiring
 
 We need two ESP32 development boards, two suitable USB cables, a Windows PC with Wi-Fi/hotspot support, and a second PC with a browser. The cable to A must carry data; a charge-only cable will not create a COM port.
@@ -37,7 +48,7 @@ We do not assume `COM3` belongs to A: the configuration value is a placeholder. 
 The Espressif IDF extension was found installed on the initial development PC; an installed extension does not prove the ESP-IDF SDK/toolchain is configured.
 
 1. We open VS Code and install/enable **Espressif IDF** if necessary.
-2. We use its setup/installation workflow to install or select **ESP-IDF v5.5.1**, with the ESP32 toolchain. The exact setup entry depends on the installed extension version; we follow the [official installation guide](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/index.html).
+2. We use **ESP-IDF: Open ESP-IDF Installation Manager** in current extension versions to install **ESP-IDF v5.5.1**, with the ESP32 toolchain, then **ESP-IDF: Select Current ESP-IDF Version** to select it. Older extension versions may use a setup wizard; we follow the [official installation guide](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/installation.html).
 3. We run **ESP-IDF: Doctor Command** to check the selected setup.
 4. We open a firmware project folder as described below and use **ESP-IDF: Open ESP-IDF Terminal**. This terminal provides `idf.py`, CMake, Ninja, and the compiler environment.
 
