@@ -19,7 +19,7 @@ static void network_event(void *arg,esp_event_base_t base,int32_t id,void *data)
         ESP_LOGI("MCT431","Inspection address: " IPSTR,IP2STR(&event->ip_info.ip));
     }
 }
-void wifi_station_start(void) {
+void mct_wifi_station_start(void) {
     esp_err_t err=nvs_flash_init();
     if(err==ESP_ERR_NVS_NO_FREE_PAGES || err==ESP_ERR_NVS_NEW_VERSION_FOUND) {
         ESP_ERROR_CHECK(nvs_flash_erase());err=nvs_flash_init();

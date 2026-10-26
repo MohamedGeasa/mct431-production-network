@@ -20,6 +20,8 @@ All multibyte binary integers are **unsigned big-endian**. We serialize fields e
 
 The command identity is the tuple `(session, station, command_id)`. The same tuple is echoed in every lifecycle response and retry. Part IDs increase across batches within the gateway session. The full identity across restarts includes the session.
 
+We render session values as hexadecimal strings in JSON evidence and the browser so JavaScript does not round 64-bit integers. The wire representation remains an unsigned 64-bit integer.
+
 DELIVERED confirms that a complete, decodable application message reached the station. ACCEPTED confirms semantic validation and willingness to execute. COMPLETED contains an explicit result. A corrupt serial frame fails CRC and gets no application acknowledgement; the gateway detects the missing response through its timeout. Local `send()` success is never logged as application delivery or completion.
 
 ## Operation semantics

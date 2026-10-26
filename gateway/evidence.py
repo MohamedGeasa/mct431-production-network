@@ -21,8 +21,15 @@ class Evidence:
         self.record("run_started", mode=label)
 
     def record(self, event, **details):
+        def safe_json(value):
+            if isinstance(value, dict):
+                return {key: (f"0x{item:016x}" if key == "session" and isinstance(item, int)
+                              else safe_json(item)) for key, item in value.items()}
+            if isinstance(value, list):
+                return [safe_json(item) for item in value]
+            return value
         item = {"utc": datetime.now(timezone.utc).isoformat(), "monotonic_s": time.monotonic(),
-                "simulation": self.simulated, "event": event, **details}
+                "simulation": self.simulated, "event": event, **safe_json(details)}
         self.events.write(json.dumps(item) + "\n")
         self.events.flush()
         self.recent = (self.recent + [item])[-80:]

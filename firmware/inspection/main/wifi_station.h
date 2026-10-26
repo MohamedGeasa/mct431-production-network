@@ -1,2 +1,2 @@
 #pragma once
-void wifi_station_start(void);
+void mct_wifi_station_start(void);

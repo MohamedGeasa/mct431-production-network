@@ -3,6 +3,8 @@ from dataclasses import replace
 import pytest
 from gateway.config import BatchConfig
 from gateway.protocol import Message, Kind, Op, SlipDecoder, slip_encode, atr_pack, atr_unpack
+from gateway.evidence import Evidence
+import json
 
 
 def test_crc_reference_and_cross_language_wire_vector():
@@ -41,3 +43,13 @@ def test_corruption_lengths_and_decoder_recovery():
 def test_invalid_runtime_parameters(field, value):
     with pytest.raises(ValueError):
         BatchConfig(**{field:value})
+
+
+def test_evidence_preserves_64_bit_sessions_for_browser(tmp_path):
+    log = Evidence(tmp_path, True)
+    try:
+        log.record("sample", session=0xFEDCBA9876543210, message={"session":0xFEDCBA9876543210})
+        item = json.loads((log.path / "events.jsonl").read_text().splitlines()[-1])
+        assert item["session"] == item["message"]["session"] == "0xfedcba9876543210"
+    finally:
+        log.close()
