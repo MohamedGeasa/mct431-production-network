@@ -1,0 +1,5 @@
+{
+  "folders": [{"name": "Repository", "path": "."}, {"name": "ESP32 A — Production", "path": "firmware/production"}, {"name": "ESP32 B — Inspection", "path": "firmware/inspection"}],
+  "extensions": {"recommendations": ["espressif.esp-idf-extension", "ms-python.python"]},
+  "settings": {"files.exclude": {"**/__pycache__": true, "**/.pytest_cache": true}}
+}

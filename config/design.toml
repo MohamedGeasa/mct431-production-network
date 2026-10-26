@@ -1,0 +1,27 @@
+# Shared demonstration defaults. Runtime settings are validated by both gateway
+# and firmware. Copy to config/local.toml for machine-specific settings.
+[production]
+target_parts = 20
+queue_capacity = 4
+production_ms = 500
+inspection_ms = 1200
+reject_modulus = 5
+reject_offset = 0
+
+[communication]
+serial_port = "COM3"
+baud_rate = 115200
+inspection_host = "192.168.137.100"
+inspection_port = 9000
+ack_timeout_s = 2.0
+completion_grace_s = 2.0
+max_attempts = 3
+heartbeat_timeout_s = 4.0
+reconnect_s = 1.0
+
+[server]
+host = "0.0.0.0"
+port = 8000
+
+[logging]
+directory = "evidence/runs"

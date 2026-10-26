@@ -1,0 +1,10 @@
+menu "MCT431 inspection network"
+    config MCT_WIFI_SSID
+        string "Gateway hotspot SSID"
+        default "MCT431-Lab"
+    config MCT_WIFI_PASSWORD
+        string "Gateway hotspot password"
+        default ""
+        help
+            Set locally with menuconfig. sdkconfig is ignored by Git.
+endmenu

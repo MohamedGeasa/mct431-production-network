@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MCT431 · Production network</title><link rel="stylesheet" href="/static/style.css"></head>
+<body><main>
+<header><div><p class="eyebrow">MCT431 · MILESTONE 1</p><h1>Production network</h1><p>We produce, inspect, and follow every part.</p></div><span id="mode" class="badge">Connecting…</span></header>
+<section class="statusbar"><strong id="state">Idle</strong><span id="a">Production offline</span><span id="b">Inspection offline</span><span id="connection">Connecting to gateway…</span></section>
+<p id="alert" role="status" aria-live="polite"></p>
+<div class="layout"><section class="panel"><h2>Batch settings</h2><form id="settings">
+<label>Target parts<input name="target_parts" type="number" min="1" max="10000" required></label>
+<label>Queue capacity<input name="queue_capacity" type="number" min="1" max="1024" required></label>
+<label>Production time · ms<input name="production_ms" type="number" min="1" max="60000" required></label>
+<label>Inspection time · ms<input name="inspection_ms" type="number" min="1" max="60000" required></label>
+<label>Reject modulus · N<input name="reject_modulus" type="number" min="1" max="1000000" required></label>
+<label>Reject offset · K<input name="reject_offset" type="number" min="0" max="1000000" required></label>
+<p class="hint">ESP32 B rejects when (part ID + K) mod N = 0. Settings apply when we start a batch.</p>
+<div class="controls"><button type="button" data-action="start">Start</button><button type="button" data-action="pause">Pause</button><button type="button" data-action="resume">Resume</button><button type="button" data-action="stop" class="stop">Stop</button></div>
+</form></section>
+<section class="panel"><h2>Batch progress <span id="batch" class="muted"></span></h2>
+<div class="metrics"><div><strong id="produced">0</strong><span>Produced</span></div><div><strong id="accepted">0</strong><span>Accepted</span></div><div><strong id="rejected">0</strong><span>Rejected</span></div></div>
+<progress id="progress" value="0" max="20"></progress><p id="summary">Waiting for status.</p>
+<h3>Inspection queue <span id="capacity"></span></h3><div id="queue" class="queue"></div>
+<p id="active" class="hint"></p><p class="hint">Pause finishes current work. Stop finishes current work and discards waiting parts.</p>
+</section></div>
+<section class="panel"><h2>Communication events</h2><p class="hint">Delivery, acceptance, and completion are separate events. Full evidence is saved on the gateway.</p><pre id="events" aria-label="Recent communication events"></pre></section>
+<footer>Production mode · USB serial + TCP · HTTP + WebSocket</footer>
+</main><script src="/static/app.js"></script></body></html>
